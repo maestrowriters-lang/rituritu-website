@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Digital Portfolio | Supporting Children, Families & Communities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #fefaf5;
+            color: #1e2f2f;
+            line-height: 1.5;
+        }
+
+        /* hero with background image */
+        .hero {
+            background: linear-gradient(0deg, rgba(255,245,235,0.92), rgba(249,242,229,0.94)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center 30%;
+            padding: 2.5rem 1.5rem 3rem;
+            border-bottom: 1px solid #e2d9cf;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #2b5e3b;
+            text-shadow: 2px 2px 8px rgba(255,255,200,0.8);
+        }
+        .hero p {
+            max-width: 850px;
+            margin: 1rem auto 0;
+            font-size: 1.1rem;
+            background: rgba(255,248,240,0.85);
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* tab bar */
+        .tab-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 1rem 1rem 0 1rem;
+            border-bottom: 1px solid #e9e2d4;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: #ffffffdd;
+            backdrop-filter: blur(12px);
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.7rem 1.2rem;
+            border-radius: 2rem 2rem 0 0;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #4a5b52;
+            font-family: inherit;
+        }
+        .tab-btn i {
+            margin-right: 8px;
+        }
+        .tab-btn:hover {
+            background: #f3ede5;
+            color: #2b5e3b;
+        }
+        .tab-btn.active {
+            background: #2b5e3b;
+            color: white;
+            border-radius: 2rem;
+            box-shadow: 0 4px 12px rgba(43,94,59,0.3);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+            border: 1px solid #efe7dd;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-content.active-tab {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2b5e3b;
+            border-left: 6px solid #d68b45;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.8rem 0 0.8rem;
+            color: #3b6e47;
+            border-bottom: 3px solid #f3e5d8;
+            padding-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 1.5rem 0;
+        }
+        .card {
+            background: #fefbf7;
+            border-radius: 1.8rem;
+            padding: 1.4rem;
+            border: 1px solid #f0e3d6;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .storybook-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .storybook-item {
+            background: #fff7ef;
+            border-radius: 1.2rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border-left: 4px solid #d68b45;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin: 1.5rem 0;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            background: #dad1c4;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .reference-list {
+            background: #faf7f2;
+            padding: 1.8rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .reference-list p {
+            margin-bottom: 0.75rem;
+            word-break: break-word;
+        }
+        .reference-list a {
+            color: #2b5e3b;
+            text-decoration: none;
+            border-bottom: 1px solid #c6b69f;
+        }
+        .reference-list a:hover {
+            border-bottom-color: #2b5e3b;
+        }
+        .image-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            justify-content: center;
+        }
+        .image-row img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 1.5rem;
+            object-fit: cover;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+        }
+        .full-width-img {
+            width: 100%;
+            border-radius: 1.5rem;
+            margin: 1rem 0;
+            max-height: 300px;
+            object-fit: cover;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            background: #fffbf6;
+            border-top: 1px solid #e4dbcf;
+        }
+        @media (max-width: 700px) {
+            .tab-btn { padding: 0.5rem 0.9rem; font-size: 0.8rem; }
+            .reference-list { padding: 1.2rem; }
+            .section-title { font-size: 1.6rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div class="hero">
+    <h1>🌱 Digital Portfolio</h1>
+    <p><strong>Supporting Children, Families, and Communities in Contemporary Society</strong><br> Economic · Social · Cultural · Health · Crisis contexts</p>
+</div>
+
+<div class="tab-bar" id="tabBar">
+    <button class="tab-btn active" data-tab="home"><i class="fas fa-home"></i> Home</button>
+    <button class="tab-btn" data-tab="economic"><i class="fas fa-chart-line"></i> Economic</button>
+    <button class="tab-btn" data-tab="social"><i class="fas fa-users"></i> Social</button>
+    <button class="tab-btn" data-tab="cultural"><i class="fas fa-globe"></i> Cultural</button>
+    <button class="tab-btn" data-tab="health"><i class="fas fa-heartbeat"></i> Health</button>
+    <button class="tab-btn" data-tab="crisis"><i class="fas fa-exclamation-triangle"></i> Crisis</button>
+    <button class="tab-btn" data-tab="references"><i class="fas fa-book-open"></i> References</button>
+</div>
+
+<div class="container">
+    <!-- HOME TAB -->
+    <div id="home" class="tab-content active-tab">
+        <div class="section-title"><i class="fas fa-leaf"></i> Homepage</div>
+        <img class="full-width-img" src="https://images.unsplash.com/photo-1526676539630-9f1a8a2b2a0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Diverse children playing together" style="margin-bottom: 1.5rem;">
+        <p style="font-size:1.1rem; font-weight:500;">Digital Portfolio: Supporting Children, Families, and Communities in Contemporary Society</p>
+        <p>The contexts of childhood in 21st century Australia are examined within this portfolio. Five primary contexts are analysed through theoretical, policy and practice lenses using Bronfenbrenner's Ecological Systems Theory (1979) and Bourdieu's Theory of Capital (1986). Evidence-informed strategies and resources for early childhood educators are presented to promote resilience, inclusion and equity.</p>
+        <div class="image-row">
+            <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Family reading">
+            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Educator with child">
+            <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Community help">
+        </div>
+        <div style="background: #f2ede5; border-radius: 1.8rem; padding: 1.2rem; text-align: center;">
+            <i class="fas fa-arrow-right"></i> <strong>Navigation:</strong> Use the tabs above to explore each context and the APA reference list.
+        </div>
+    </div>
+
+    <!-- ECONOMIC CONTEXT -->
+    <div id="economic" class="tab-content">
+        <div class="section-title"><i class="fas fa-coins"></i> ECONOMIC CONTEXT</div>
+        <img class="full-width-img" src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Family budgeting with child">
+        <p>Economic disadvantage affects children's access to quality early education, nutritious food, and learning materials (The Smith Family, 2023). Bronfenbrenner (1979) shows poverty impacts microsystem, exosystem, macrosystem; Bourdieu (1986) highlights lack of cultural/social capital. Maslow's hierarchy indicates basic needs must be met for learning.</p>
+        <h3><i class="fas fa-chart-simple"></i> Impact on Children & Families</h3>
+        <p>Higher cortisol, language delays, behavioural issues, fewer resources (AIFS, 2023; Anglicare, 2023). Families face childcare affordability, housing stress, and social exclusion. Early childhood educators are key to early identification and support.</p>
+        <div class="two-col-grid">
+            <div class="card"><img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Trauma-informed care"><h5>Trauma-informed strategies</h5><ul><li>Safe routines & predictable environment</li><li>Inclusive curriculum & cultural capital</li><li>Parent involvement & nutritious food</li><li>Flexible enrolment & multi-agency work</li></ul></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1573164574235-db1d5f960db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Community partners"><h5>Community partners</h5><ul><li>The Smith Family, Mission Australia</li><li>Anglicare, Salvation Army</li><li>Centrelink, local housing support</li></ul></div>
+        </div>
+        <div class="storybook-grid"><span class="storybook-item"><em>The Very Hungry Caterpillar</em> – needs</span><span class="storybook-item"><em>All Are Welcome</em> – inclusion</span><span class="storybook-item"><em>Ruby's Worry</em> – emotional awareness</span><span class="storybook-item"><em>Last Stop on Market Street</em> – empathy</span></div>
+        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/p-kAI-qOeJA" title="ABC Kids educational" allowfullscreen></iframe></div>
+    </div>
+
+    <!-- SOCIAL CONTEXT -->
+    <div id="social" class="tab-content">
+        <div class="section-title"><i class="fas fa-handshake"></i> SOCIAL CONTEXT</div>
+        <img class="full-width-img" src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Family holding hands">
+        <p>Family instability, divorce, neglect, out-of-home care, and social isolation affect belonging (AIFS, 2023). Attachment Theory stresses secure relationships; instability leads to anxiety and behavioural issues (Australian Childhood Foundation, 2023).</p>
+        <div class="two-col-grid">
+            <div class="card"><img src="https://images.unsplash.com/photo-1503185912284-5271ff81b99a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Therapist with child"><h5>Support strategies</h5><ul><li>Relationship-based practice & routines</li><li>Emotion literacy programs</li><li>Family involvement & inclusive environments</li><li>Referral to Kids Helpline, Headspace</li></ul></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Support group"><h5>Support services</h5><ul><li>Barnardos, Anglicare, UnitingCare</li><li>Relationships Australia</li><li>Australian Childhood Foundation</li><li>Beyond Blue, Raising Children Network</li></ul></div>
+        </div>
+        <div class="storybook-grid"><span class="storybook-item"><em>The Invisible String</em> – separation</span><span class="storybook-item"><em>The Colour Monster</em> – emotions</span><span class="storybook-item"><em>When I'm Feeling Sad</em></span><span class="storybook-item"><em>Guess How Much I Love You</em></span></div>
+        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/2PTK9r3vuu8" title="Sesame Street emotions" allowfullscreen></iframe></div>
+    </div>
+
+    <!-- CULTURAL & DIVERSITY -->
+    <div id="cultural" class="tab-content">
+        <div class="section-title"><i class="fas fa-globe-americas"></i> CULTURAL & DIVERSITY CONTEXT</div>
+        <img class="full-width-img" src="https://images.unsplash.com/photo-1523744341846-9d08ac5ef3c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Multicultural children">
+        <p>Aboriginal, Torres Strait Islander, immigrant, refugee and CALD families bring rich diversity (AHRC, 2022). Bourdieu's cultural capital and Bronfenbrenner's macrosystem influence inclusion. Positive identity fosters self-esteem (UNICEF, 2023).</p>
+        <div class="two-col-grid">
+            <div class="card"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Indigenous art"><h5>Culturally inclusive practices</h5><ul><li>Anti-bias curriculum & representation</li><li>Home language support & visual aids</li><li>Indigenous perspectives (Welcome to Country)</li><li>Partnerships with SBS, Multicultural Australia</li></ul></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1531134935575-6a4bb8ee7b4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Refugee support"><h5>Community resources</h5><ul><li>SBS Learn, Refugee Council</li><li>Australian Human Rights Commission</li><li>Local multicultural services</li><li>UNICEF & Raising Children Network</li></ul></div>
+        </div>
+        <div class="storybook-grid"><span class="storybook-item"><em>Whoever You Are</em></span><span class="storybook-item"><em>All Are Welcome</em></span><span class="storybook-item"><em>My Two Blankets</em></span><span class="storybook-item"><em>Welcome to Country</em></span></div>
+        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/1cStcSOG2Oc" title="Cultural diversity" allowfullscreen></iframe></div>
+    </div>
+
+    <!-- HEALTH & WELLBEING -->
+    <div id="health" class="tab-content">
+        <div class="section-title"><i class="fas fa-heartbeat"></i> HEALTH & WELLBEING CONTEXT</div>
+        <img class="full-width-img" src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Child with caregiver">
+        <p>Parental mental illness, substance use, trauma, neglect affect child development (Australian Childhood Foundation, 2023). Trauma-informed care, Attachment Theory, and Maslow's Hierarchy guide practice. Access to mental health services is uneven (Lifeline, 2023).</p>
+        <div class="two-col-grid">
+            <div class="card"><img src="https://images.unsplash.com/photo-1518544801976-3e159e50e8bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Yoga with child"><h5>Wellbeing strategies</h5><ul><li>Safe & predictable environments</li><li>Emotional literacy (storytelling, role play)</li><li>Strong educator-child attachment</li><li>Early referral to support services</li></ul></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Mental health support"><h5>Key partners</h5><ul><li>Beyond Blue, Headspace, Lifeline</li><li>Kids Helpline, Australian Childhood Foundation</li><li>Raising Children Network</li></ul></div>
+        </div>
+        <div class="storybook-grid"><span class="storybook-item"><em>The Colour Monster</em></span><span class="storybook-item"><em>Ruby's Worry</em></span><span class="storybook-item"><em>When I Feel Angry</em></span><span class="storybook-item"><em>A Terrible Thing Happened</em></span></div>
+        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/IipVaPKnjRk" title="Health and Wellbeing" allowfullscreen></iframe></div>
+    </div>
+
+    <!-- CRISIS & EMERGENCY -->
+    <div id="crisis" class="tab-content">
+        <div class="section-title"><i class="fas fa-exclamation-triangle"></i> CRISIS & EMERGENCY CONTEXT</div>
+        <img class="full-width-img" src="https://images.unsplash.com/photo-1589361335418-3a1b1de2d275?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Natural disaster preparation family">
+        <p>Bushfires, floods, pandemics, domestic violence, homelessness (Red Cross Australia, 2023). Trauma-informed care and Bronfenbrenner's model highlight disrupted systems. Maslow: safety before learning. Climate disasters increase need for preparedness (UNICEF, 2023).</p>
+        <div class="two-col-grid">
+            <div class="card"><img src="https://images.unsplash.com/photo-1501700493788-fa1a4fc9fe62?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Emergency kit"><h5>Crisis response strategies</h5><ul><li>Trauma-informed empathy & patience</li><li>Re-establish routines & safety</li><li>Play, storytelling, emergency education</li><li>Collaboration with Red Cross, SES</li></ul></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1543404708-4bcbaecf1bc2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Emergency services"><h5>Emergency partners</h5><ul><li>Red Cross Australia, State Emergency Services</li><li>UNICEF, Salvation Army Australia</li><li>Local emergency services</li></ul></div>
+        </div>
+        <div class="storybook-grid"><span class="storybook-item"><em>After the Fall</em> – resilience</span><span class="storybook-item"><em>A Terrible Thing Happened</em> – trauma</span><span class="storybook-item"><em>When the Storm Comes</em></span><span class="storybook-item"><em>The Rabbit Listened</em></span></div>
+        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/Y9zxnJ5NJZ8" title="Crisis and emergency teaching" allowfullscreen></iframe></div>
+    </div>
+
+    <!-- REFERENCES TAB (exact format as requested) -->
+    <div id="references" class="tab-content">
+        <div class="section-title"><i class="fas fa-book"></i> 📚 REFERENCES (APA 7th Edition)</div>
+        <div class="reference-list">
+            <p>Anglicare Australia. (2023). <em>Poverty in Australia report</em>. <a href="https://www.anglicare.asn.au" target="_blank" rel="noopener noreferrer">https://www.anglicare.asn.au</a></p>
+            <p>Australian Childhood Foundation. (2023). <em>Supporting children affected by trauma</em>. <a href="https://www.childhood.org.au" target="_blank" rel="noopener noreferrer">https://www.childhood.org.au</a></p>
+            <p>Australian Government Department of Education. (2022). <em>Belonging, being and becoming: The Early Years Learning Framework for Australia</em> (Version 2.0). <a href="https://www.education.gov.au" target="_blank" rel="noopener noreferrer">https://www.education.gov.au</a></p>
+            <p>Australian Human Rights Commission. (2022). <em>Children’s rights report</em>. <a href="https://humanrights.gov.au" target="_blank" rel="noopener noreferrer">https://humanrights.gov.au</a></p>
+            <p>Australian Institute of Family Studies. (2023). <em>Child protection Australia report</em>. <a href="https://www.aifs.gov.au" target="_blank" rel="noopener noreferrer">https://www.aifs.gov.au</a></p>
+            <p>Barnardos Australia. (2023). <em>Annual report</em>. <a href="https://www.barnardos.org.au" target="_blank" rel="noopener noreferrer">https://www.barnardos.org.au</a></p>
+            <p>Beyond Blue. (2023). <em>Mental health in Australia</em>. <a href="https://www.beyondblue.org.au" target="_blank" rel="noopener noreferrer">https://www.beyondblue.org.au</a></p>
+            <p>Bourdieu, P. (1986). The forms of capital. In J. Richardson (Ed.), <em>Handbook of theory and research for the sociology of education</em> (pp. 241–258). Greenwood.</p>
+            <p>Bronfenbrenner, U. (1979). <em>The ecology of human development: Experiments by nature and design</em>. Harvard University Press.</p>
+            <p>Centrelink. (2023). <em>Payments and services</em>. <a href="https://www.servicesaustralia.gov.au" target="_blank" rel="noopener noreferrer">https://www.servicesaustralia.gov.au</a></p>
+            <p>Department of Education Australia. (2022). <em>Child Care Subsidy</em>. <a href="https://www.education.gov.au" target="_blank" rel="noopener noreferrer">https://www.education.gov.au</a></p>
+            <p>Headspace. (2023). <em>National youth mental health foundation</em>. <a href="https://www.headspace.org.au" target="_blank" rel="noopener noreferrer">https://www.headspace.org.au</a></p>
+            <p>Kids Helpline. (2023). <em>Support services for children</em>. <a href="https://kidshelpline.com.au" target="_blank" rel="noopener noreferrer">https://kidshelpline.com.au</a></p>
+            <p>Lifeline Australia. (2023). <em>Crisis support services</em>. <a href="https://www.lifeline.org.au" target="_blank" rel="noopener noreferrer">https://www.lifeline.org.au</a></p>
+            <p>Maslow, A. H. (1943). A theory of human motivation. <em>Psychological Review, 50</em>(4), 370–396. <a href="https://doi.org/10.1037/h0054346" target="_blank" rel="noopener noreferrer">https://doi.org/10.1037/h0054346</a></p>
+            <p>Mission Australia. (2023). <em>Annual report</em>. <a href="https://www.missionaustralia.com.au" target="_blank" rel="noopener noreferrer">https://www.missionaustralia.com.au</a></p>
+            <p>Multicultural Australia. (2023). <em>Supporting diverse communities</em>. <a href="https://www.multiculturalaustralia.org.au" target="_blank" rel="noopener noreferrer">https://www.multiculturalaustralia.org.au</a></p>
+            <p>Red Cross Australia. (2023). <em>Emergency services and disaster response</em>. <a href="https://www.redcross.org.au" target="_blank" rel="noopener noreferrer">https://www.redcross.org.au</a></p>
+            <p>Refugee Council of Australia. (2023). <em>Refugee support programs</em>. <a href="https://www.refugeecouncil.org.au" target="_blank" rel="noopener noreferrer">https://www.refugeecouncil.org.au</a></p>
+            <p>Relationships Australia. (2023). <em>Family and relationship services</em>. <a href="https://www.relationships.org.au" target="_blank" rel="noopener noreferrer">https://www.relationships.org.au</a></p>
+            <p>Salvation Army Australia. (2023). <em>Community support services</em>. <a href="https://www.salvationarmy.org.au" target="_blank" rel="noopener noreferrer">https://www.salvationarmy.org.au</a></p>
+            <p>SBS Australia. (2023). <em>Multicultural education resources</em>. <a href="https://www.sbs.com.au" target="_blank" rel="noopener noreferrer">https://www.sbs.com.au</a></p>
+            <p>The Smith Family. (2023). <em>Education support programs</em>. <a href="https://www.thesmithfamily.com.au" target="_blank" rel="noopener noreferrer">https://www.thesmithfamily.com.au</a></p>
+            <p>UNICEF. (2023). <em>Early childhood development programs</em>. <a href="https://www.unicef.org" target="_blank" rel="noopener noreferrer">https://www.unicef.org</a></p>
+            <p>UnitingCare Australia. (2023). <em>Community support services</em>. <a href="https://www.unitingcare.org.au" target="_blank" rel="noopener noreferrer">https://www.unitingcare.org.au</a></p>
+        </div>
+        <p style="margin-top: 1rem; text-align: center; font-size: 0.85rem;"><i class="fas fa-camera"></i> Images used for educational purposes, sourced from Unsplash free library. All video links are active.</p>
+    </div>
+</div>
+
+<footer>
+    <p>📘 Digital Portfolio — Supporting Children, Families & Communities in Contemporary Society | Evidence-informed strategies for early childhood educators | Australia 2025</p>
+    <p style="margin-top: 8px;"><i class="fas fa-image"></i> Rich imagery & graphics integrated to support inclusive learning across all contexts.</p>
+</footer>
+
+<script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+    function activateTab(tabId) {
+        contents.forEach(c => c.classList.remove('active-tab'));
+        const target = document.getElementById(tabId);
+        if (target) target.classList.add('active-tab');
+        tabs.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
+        });
+        history.pushState(null, null, `#${tabId}`);
+    }
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            if (tabId) activateTab(tabId);
+        });
+    });
+    function getInitial() {
+        const hash = window.location.hash.slice(1);
+        if (hash && ['home','economic','social','cultural','health','crisis','references'].includes(hash)) return hash;
+        return 'home';
+    }
+    activateTab(getInitial());
+    window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.slice(1);
+        if (hash && ['home','economic','social','cultural','health','crisis','references'].includes(hash)) activateTab(hash);
+    });
+</script>
+</body>
+</html>
